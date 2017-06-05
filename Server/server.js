@@ -88,8 +88,8 @@ app.post("/createDevice", function (req, res) {
 				var publicationString = getTwitterPublicationString(48, id, new Date());
 				client.post('statuses/update', {status: publicationString},  function(error, tweet, response) {
 					if(error) throw error;
-					  console.log(tweet);  // Tweet body. 
-					  console.log(response);  // Raw response object. 
+					  console.log(tweet);  // Tweet body.
+					  console.log(response);  // Raw response object.
 					});
 				}
         });
@@ -606,5 +606,3 @@ const options = {
 };
 var httpsserver = https.createServer(options,app);
 httpsserver.listen(8082);
-
-
