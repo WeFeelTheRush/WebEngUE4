@@ -27,6 +27,16 @@ export class OverlayComponent implements OnInit {
     constructor(private deviceService: DeviceService, private http: Http) {
     }
 
+     dbquery:string = `
+       select distinct ?label ?url WHERE {
+                ?set dct:subject dbc:Home_automation .
+                ?set rdf:type owl:Thing.
+                ?company dbo:product ?set.
+                ?set rdfs:label ?label.
+                ?set <http://dbpedia.org/ontology/thumbnail> ?url.
+                filter(lang(?label)='de')
+        }`;
+
 
     /**
      * Wird beim Start dieser Componente aufgerufen
@@ -173,18 +183,8 @@ export class OverlayComponent implements OnInit {
     getSPARQLTypes(): void {
         //Lesen Sie mittels SPARQL die gewünschten Daten (wie in der Angabe beschrieben) aus und speichern Sie diese im SessionStorage
 
-        let dbquery = `
-           SELECT distinct ?label ?url WHERE {
-                    ?set dct:subject dbc:Home_automation .
-                    ?set rdf:type owl:Thing.
-                    ?company dbo:product ?set.
-                    ?set rdfs:label ?label.
-                    ?set <http://dbpedia.org/ontology/thumbnail> ?url.
-                    FILTER(LANG(?label)='de')
-            }`;
-
-        let params = new URLSearchParams();
-        params.set('query', dbquery);
+		let params = new URLSearchParams();
+        params.set('query', this.dbquery);
 
 
         let devices = sessionStorage.getItem("db-devices");
