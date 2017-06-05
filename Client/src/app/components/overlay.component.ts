@@ -103,12 +103,12 @@ export class OverlayComponent implements OnInit {
                 break;
             default:
                 // Lesen Sie die SPARQL - Informationen aus dem SessionStorage und speichern Sie die entsprechenden Informationen zum Gerät
-                let lodata = JSON.parse(sessionStorage.getItem("db-devices"));
-                for (let deviceSparql of lodata) {
-                    if (deviceSparql["label"] == this.selected_type) {
-                        device.image = deviceSparql["url"];
-                        device.image_alt = deviceSparql["label"];
-                        device.description = deviceSparql["description"];
+                let device_data = JSON.parse(sessionStorage.getItem("db-devices"));
+                for (let dbDevice of device_data) {
+                    if (dbDevice["label"] == this.selected_type) {
+                        device.image = dbDevice["url"];
+                        device.image_alt = dbDevice["label"];
+                        device.description = dbDevice["description"];
                     }
                 }
                 break;
